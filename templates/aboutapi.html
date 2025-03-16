@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API & Backend Documentation</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 1000px;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      .highlight {
+        background-color: #e9ecef;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px; /* Added margin for spacing */
+      }
+      pre {
+        background: #272822;
+        color: #f8f8f2;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
+      .navbar {
+        padding: 18px 0;
+        font-size: 18px;
+        background: linear-gradient(135deg, #343a40, #22272b);
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+      .navbar-brand {
+        font-size: 24px;
+        font-weight: bold;
+        color: white !important;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+      .navbar-toggler {
+        border: none;
+      }
+      .nav-link {
+        color: white !important;
+        transition: color 0.3s ease-in-out;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: #ffc107 !important;
+      }
+      .navbar-nav .nav-item {
+        margin-left: 15px;
+      }
+      .navbar-dark .navbar-toggler-icon {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="/home">
+          <i class="fa-solid fa-ring me-2 text-warning"></i> Ring Design
+          Predictor
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/predict">Predict</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutproject">About Project</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/aboutapi">API Docs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adv">Advantages</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <div class="container">
+        <h1 class="text-center">API & Backend Documentation</h1>
+        <p class="lead text-center">
+          Detailed explanation of the Flask API and backend functionalities.
+        </p>
+
+        <div class="mb-4">
+          <h2>Project Overview</h2>
+          <p>
+            This API is built using Flask and serves as the backend for the
+            <b>Ring Design Choice Prediction</b> application. It loads a trained
+            model to predict whether a jeweler's party will select a particular
+            ring design.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <h2>Technologies Used</h2>
+          <ul>
+            <li>Flask (Python web framework)</li>
+            <li>Pandas (Data manipulation)</li>
+            <li>Pickle (Model persistence)</li>
+            <li>Scikit-learn (Machine learning utilities)</li>
+          </ul>
+        </div>
+
+        <div class="mb-4">
+          <h2>Model & Preprocessing</h2>
+          <p>
+            The API loads the trained model, label encoder, feature names, and
+            scaler using Pickle. Data preprocessing includes:
+          </p>
+          <ul>
+            <li>One-hot encoding categorical features</li>
+            <li>Handling missing values</li>
+            <li>Feature scaling using MinMaxScaler (if available)</li>
+            <li>Ensuring feature alignment with training data</li>
+          </ul>
+        </div>
+
+        <div class="mb-4">
+          <h2>API Endpoints</h2>
+          <div class="highlight">
+            <h4>1. Home Page</h4>
+            <p><b>URL:</b> <code>/</code></p>
+            <p><b>Method:</b> GET</p>
+            <p><b>Description:</b> Serves the frontend HTML form.</p>
+          </div>
+          <div class="highlight mt-3">
+            <h4>2. Predict Ring Design Choice</h4>
+            <p><b>URL:</b> <code>/predict</code></p>
+            <p><b>Method:</b> POST</p>
+            <p>
+              <b>Description:</b> Predicts if a jeweler's party will select a
+              specific ring design.
+            </p>
+            <p><b>Request JSON Format:</b></p>
+            <pre>
+{
+    "Party Name": "ABC Jewels",
+    "Number of Diamonds": 5,
+    "First Color of Diamond": "White",
+    "Second Color of Diamond": "Blue",
+    "Third Color of Diamond": "None",
+    "Shape": "Round",
+    "Quantity": 10,
+    "type": "Luxury"
+}
+                    </pre
+            >
+            <p><b>Response JSON Format:</b></p>
+            <pre>
+{
+    "prediction": "Yes"
+}
+                    </pre
+            >
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h2>Error Handling</h2>
+          <p>The API includes error handling for:</p>
+          <ul>
+            <li>Missing required fields</li>
+            <li>Invalid quantity values</li>
+            <li>Processing errors</li>
+          </ul>
+        </div>
+
+        <div class="text-center">
+          <h2>Conclusion</h2>
+          <p>
+            The API provides a structured approach to predicting ring design
+            choices using machine learning. Proper preprocessing and error
+            handling enhance model accuracy and reliability.
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

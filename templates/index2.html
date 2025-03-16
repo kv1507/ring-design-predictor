@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diamond Choice Prediction</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(to bottom, #f9f9f9, #dbeafe);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .container {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        margin: 20px auto;
+      }
+      h1 {
+        font-size: 24px;
+        color: #007bff;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      label {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+        color: #444;
+      }
+      input,
+      select,
+      button {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        width: 100%;
+      }
+      input:focus,
+      select:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        padding: 12px;
+        margin-top: 10px;
+        transition: background 0.3s;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #result {
+        margin-top: 20px;
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        display: none;
+      }
+      .success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      .error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      .button-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+        margin: 20px auto;
+        width: 90%;
+        max-width: 550px;
+      }
+      .button-group button {
+        background-color: #ff7f50;
+        color: white;
+        border: none;
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+        width: 100%;
+      }
+      .button-group button:hover {
+        background-color: #e66a3c;
+      }
+      .gradient-overlay {
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0.7)
+        );
+      }
+      .btn-hover:hover {
+        transform: scale(1.05);
+        transition: 0.3s ease-in-out;
+      }
+      .navbar {
+        padding: 18px 0; /* Increased padding */
+        font-size: 18px;
+        background: linear-gradient(
+          135deg,
+          #343a40,
+          #22272b
+        ); /* Gradient background */
+        border-radius: 0 0 8px 8px; /* Border radius */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Box shadow */
+      }
+      .navbar-brand {
+        font-size: 24px; /* Increased font size */
+        font-weight: bold;
+        color: white !important;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow */
+      }
+      .navbar-toggler {
+        border: none;
+      }
+      .nav-link {
+        color: white !important;
+        transition: color 0.3s ease-in-out;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow */
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: #ffc107 !important;
+      }
+      .navbar-nav .nav-item {
+        margin-left: 15px;
+      }
+      .navbar-dark .navbar-toggler-icon {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="/home">
+          <i class="fa-solid fa-ring me-2 text-warning"></i> Ring Design
+          Predictor
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/predict">Predict</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutproject">About Project</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutapi">API Docs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adv">Advantages</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <div class="button-group">
+        <button type="button" onclick="fillSampleData(0)">
+          Sample 1 (YES)
+        </button>
+        <button type="button" onclick="fillSampleData(1)">
+          Sample 2 (YES)
+        </button>
+        <button type="button" onclick="fillSampleData(2)">
+          Sample 3 (YES)
+        </button>
+        <button type="button" onclick="fillSampleData(3)">
+          Sample 4 (YES)
+        </button>
+        <button type="button" onclick="fillSampleData(4)">
+          Sample 5 (YES)
+        </button>
+        <button type="button" onclick="fillSampleData(5)">Sample 6 (NO)</button>
+        <button type="button" onclick="fillSampleData(6)">Sample 7 (NO)</button>
+        <button type="button" onclick="fillSampleData(7)">Sample 8 (NO)</button>
+        <button type="button" onclick="fillSampleData(8)">Sample 9 (NO)</button>
+        <button type="button" onclick="fillSampleData(9)">
+          Sample 10 (NOoooo)
+        </button>
+      </div>
+      <div class="container">
+        <h1>Ring Design Choice Prediction</h1>
+        <form id="predictionForm" action="/predict" method="post">
+          <label for="partyName">Party Name</label>
+          <select name="Party Name" id="partyName" required>
+            <option value="">Select Party</option>
+            <option value="SanjayBhai">SanjayBhai</option>
+            <option value="VirajBhai">VirajBhai</option>
+            <option value="MRP MukeshBhai">MRP MukeshBhai</option>
+            <option value="Aditi Ornaments">Aditi Ornaments</option>
+            <option value="Shiv VipulBhai">Shiv VipulBhai</option>
+            <option value="RakeshBhai">RakeshBhai</option>
+            <option value="AshishBhai">AshishBhai</option>
+          </select>
+
+          <label for="numDiamonds">Number of Diamonds</label>
+          <input
+            type="number"
+            name="Number of Diamonds"
+            id="numDiamonds"
+            required
+          />
+
+          <label for="firstColor">First Color</label>
+          <select name="First Color of Diamond" id="firstColor" required>
+            <option value="">Select Color</option>
+            <option value="Ruby">Ruby</option>
+            <option value="Green">Green</option>
+            <option value="Blue">Blue</option>
+            <option value="Purple">Purple</option>
+            <option value="White">White</option>
+            <option value="Pink">Pink</option>
+          </select>
+
+          <label for="secondColor">Second Color</label>
+          <select name="Second Color of Diamond" id="secondColor" required>
+            <option value="">Select Color</option>
+            <option value="Ruby">Ruby</option>
+            <option value="Green">Green</option>
+            <option value="Blue">Blue</option>
+            <option value="Purple">Purple</option>
+            <option value="White">White</option>
+            <option value="Pink">Pink</option>
+          </select>
+
+          <label for="thirdColor">Third Color</label>
+          <select name="Third Color of Diamond" id="thirdColor" required>
+            <option value="">Select Color</option>
+            <option value="Ruby">Ruby</option>
+            <option value="Green">Green</option>
+            <option value="Blue">Blue</option>
+            <option value="Purple">Purple</option>
+            <option value="White">White</option>
+            <option value="Pink">Pink</option>
+          </select>
+
+          <label for="shape">Shape</label>
+          <select name="Shape" id="shape" required>
+            <option value="">Select Shape</option>
+            <option value="Round">Round</option>
+            <option value="Flower">Flower</option>
+            <option value="Square">Square</option>
+            <option value="Marquise">Marquise</option>
+            <option value="Heart">Heart</option>
+            <option value="Oval">Oval</option>
+            <option value="Diamond">Diamond</option>
+            <option value="Hexagon">Hexagon</option>
+            <option value="Star">Star</option>
+            <option value="Club">Club</option>
+          </select>
+
+          <label for="quantity">Quantity</label>
+          <input type="number" name="Quantity" id="quantity" required />
+
+          <label for="type">Type</label>
+          <select name="type" id="type" required>
+            <option value="">Select Type</option>
+            <option value="plain">Plain</option>
+            <option value="micro">Micro</option>
+          </select>
+
+          <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+        <div id="result" class="success">{{ prediction }}</div>
+        {% endif %}
+      </div>
+    </main>
+    <script>
+      document.getElementById("result").style.display = "block";
+    </script>
+    <script>
+      document
+        .getElementById("predictionForm")
+        .addEventListener("submit", function (event) {
+          let numDiamonds = document.getElementById("numDiamonds").value;
+          let quantity = document.getElementById("quantity").value;
+
+          // Convert values to integers
+          numDiamonds = parseInt(numDiamonds, 10);
+          quantity = parseInt(quantity, 10);
+
+          // Validation
+          if (numDiamonds < 0 || numDiamonds > 14) {
+            alert("Number of Diamonds must be between 0 and 14.");
+            event.preventDefault(); // Stop form submission
+          }
+
+          if (quantity < 1 || quantity > 100) {
+            alert("Quantity must be between 1 and 100.");
+            event.preventDefault(); // Stop form submission
+          }
+        });
+
+      const sampleData = [
+        {
+          party: "SanjayBhai",
+          diamonds: 5,
+          firstColor: "Ruby",
+          secondColor: "Green",
+          thirdColor: "Blue",
+          shape: "Round",
+          quantity: 30,
+          type: "plain",
+        },
+        {
+          party: "VirajBhai",
+          diamonds: 9,
+          firstColor: "White",
+          secondColor: "Pink",
+          thirdColor: "Blue",
+          shape: "Square",
+          quantity: 30,
+          type: "micro",
+        },
+        {
+          party: "MRP MukeshBhai",
+          diamonds: 7,
+          firstColor: "Green",
+          secondColor: "Blue",
+          thirdColor: "White",
+          shape: "Flower",
+          quantity: 40,
+          type: "plain",
+        },
+        {
+          party: "Aditi Ornaments",
+          diamonds: 4,
+          firstColor: "Blue",
+          secondColor: "White",
+          thirdColor: "Purple",
+          shape: "Heart",
+          quantity: 50,
+          type: "micro",
+        },
+        {
+          party: "Shiv VipulBhai",
+          diamonds: 6,
+          firstColor: "Pink",
+          secondColor: "Purple",
+          thirdColor: "Green",
+          shape: "Oval",
+          quantity: 70,
+          type: "plain",
+        },
+        {
+          party: "SanjayBhai",
+          diamonds: 5,
+          firstColor: "Ruby",
+          secondColor: "Green",
+          thirdColor: "Blue",
+          shape: "Round",
+          quantity: 6,
+          type: "plain",
+        },
+        {
+          party: "VirajBhai",
+          diamonds: 9,
+          firstColor: "White",
+          secondColor: "Pink",
+          thirdColor: "Blue",
+          shape: "Square",
+          quantity: 10,
+          type: "micro",
+        },
+        {
+          party: "MRP MukeshBhai",
+          diamonds: 7,
+          firstColor: "Green",
+          secondColor: "Blue",
+          thirdColor: "White",
+          shape: "Flower",
+          quantity: 17,
+          type: "plain",
+        },
+        {
+          party: "MRP MukeshBhai",
+          diamonds: 3,
+          firstColor: "Blue",
+          secondColor: "White",
+          thirdColor: "Purple",
+          shape: "Heart",
+          quantity: 12,
+          type: "micro",
+        },
+        {
+          party: "Shiv VipulBhai",
+          diamonds: 8,
+          firstColor: "Pink",
+          secondColor: "Purple",
+          thirdColor: "Green",
+          shape: "Oval",
+          quantity: 15,
+          type: "plain",
+        },
+      ];
+
+      function fillSampleData(index) {
+        const data = sampleData[index % sampleData.length];
+        document.getElementById("partyName").value = data.party;
+        document.getElementById("numDiamonds").value = data.diamonds;
+        document.getElementById("firstColor").value = data.firstColor;
+        document.getElementById("secondColor").value = data.secondColor;
+        document.getElementById("thirdColor").value = data.thirdColor;
+        document.getElementById("shape").value = data.shape;
+        document.getElementById("quantity").value = data.quantity;
+        document.getElementById("type").value = data.type;
+      }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Project - Ring Design Choice Prediction</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 900px;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      .highlight {
+        background-color: #e9ecef;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      .card {
+        transition: transform 0.3s ease-in-out;
+      }
+      .card:hover {
+        transform: scale(1.05);
+      }
+      .navbar {
+        padding: 18px 0;
+        font-size: 18px;
+        background: linear-gradient(135deg, #343a40, #22272b);
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+      .navbar-brand {
+        font-size: 24px;
+        font-weight: bold;
+        color: white !important;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+      .navbar-toggler {
+        border: none;
+      }
+      .nav-link {
+        color: white !important;
+        transition: color 0.3s ease-in-out;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: #ffc107 !important;
+      }
+      .navbar-nav .nav-item {
+        margin-left: 15px;
+      }
+      .navbar-dark .navbar-toggler-icon {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="/home">
+          <i class="fa-solid fa-ring me-2 text-warning"></i> Ring Design
+          Predictor
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/predict">Predict</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/aboutproject">About Project</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutapi">API Docs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/adv">Advantages</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <div class="container">
+        <h1 class="text-center">Ring Design Choice Prediction</h1>
+        <p class="lead text-center">
+          A machine learning approach to predict whether a jeweler's party will
+          choose a specific ring design.
+        </p>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2>Project Overview</h2>
+            <p>
+              This project leverages machine learning to predict whether a
+              jewelry party will select a given ring design. The model considers
+              various factors such as:
+            </p>
+            <ul>
+              <li>Number of Diamonds</li>
+              <li>Color Combinations</li>
+              <li>Shape of the Ring</li>
+              <li>Quantity Ordered</li>
+              <li>Type of Design</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2>Data Preprocessing</h2>
+            <ul>
+              <li>Handling missing values using mean/mode imputation.</li>
+              <li>
+                One-hot encoding categorical features like Party Name, Shape,
+                and Color.
+              </li>
+              <li>
+                Scaling numerical values using <b>MinMaxScaler</b> to normalize
+                features.
+              </li>
+              <li>
+                Using <b>SMOTE-Tomek</b> to balance the dataset and reduce bias.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2>Model Selection</h2>
+            <p>
+              Multiple machine learning models were tested, and hyperparameter
+              tuning was applied:
+            </p>
+            <ul>
+              <li>
+                <b>Logistic Regression:</b> Baseline model with moderate
+                performance.
+              </li>
+              <li>
+                <b>Random Forest:</b> Improved accuracy but overfitting risk.
+              </li>
+              <li>
+                <b>XGBoost:</b> Best-performing model after hyperparameter
+                tuning.
+              </li>
+            </ul>
+            <p><b>Hyperparameter tuning:</b></p>
+            <ul>
+              <li>Learning rate optimized using GridSearchCV.</li>
+              <li>
+                Number of estimators set to 150 for balance between accuracy and
+                execution time.
+              </li>
+              <li>Max depth adjusted to prevent overfitting.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2>Evaluation Metrics</h2>
+            <p><b>Confusion Matrix:</b></p>
+            <pre>
+[[ 75 330]
+ [213 782]]
+                    </pre
+            >
+            <p><b>Classification Report:</b></p>
+            <pre>
+Precision Recall F1-score Support
+0 0.26 0.19 0.22 405
+1 0.70 0.79 0.74 995
+
+Accuracy: 0.61
+Macro Avg: 0.48
+Weighted Avg: 0.59
+                    </pre
+            >
+            <ul>
+              <li>Training Accuracy: <b>95.27%</b></li>
+              <li>Test Accuracy: <b>61.21%</b></li>
+              <li>ROC-AUC Score: <b>48.63%</b></li>
+            </ul>
+            <p><b>Key Insights:</b></p>
+            <ul>
+              <li>
+                Training accuracy is high, but test accuracy suggests
+                overfitting.
+              </li>
+              <li>
+                Higher recall for class 1 indicates strong prediction for
+                selected designs.
+              </li>
+              <li>Low precision for class 0 means many false positives.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2>Future Improvements</h2>
+            <ul>
+              <li>
+                Experimenting with deep learning models such as Neural Networks.
+              </li>
+              <li>Feature engineering to extract more meaningful insights</li>
+              <li>
+                Hyperparameter tuning using Bayesian Optimization for better
+                accuracy.
+              </li>
+              <li>Using ensemble methods to improve robustness.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-body text-center">
+            <h2>Conclusion</h2>
+            <p>
+              The project successfully applies machine learning to predict
+              jewelry design choices. Although the model has some overfitting,
+              future optimizations can significantly improve its predictive
+              capability.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
